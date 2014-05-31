@@ -1,0 +1,56 @@
+
+############################################################################
+#                        #
+# PRIMARY: special zones #
+#                        #
+##########################
+
+zone "bitmechanic.com"  {
+	type master;
+	file "/etc/bind/master/zone-bitmechanic.com";
+};
+
+zone "bookfriend.me"  {
+    type master;
+    file "/etc/bind/master/zone-bookfriend.me";
+};
+
+zone "programmer.io"  {
+    type master;
+    file "/etc/bind/master/zone-programmer.io";
+};
+
+###########################################################################
+# SECONDARY #
+#############
+
+zone "booyaka.com" {
+	type slave;
+	file "secondaries/booyaka.com";
+	masters { 74.50.51.50; };
+};
+
+zone "coloradovoter.net" {
+        type slave;
+        file "secondaries/coloradovoter.net";
+        masters { 74.50.51.50; };
+};
+
+zone "pwsan.com" {
+        type slave;
+        file "secondaries/pwsan.com";
+        masters { 74.50.51.50; };
+};
+
+zone "pswan.com" {
+        type slave;
+        file "secondaries/pswan.com";
+        masters { 74.50.51.50; };
+};  
+
+zone "coniferae.com" {
+        type slave;
+        file "secondaries/coniferae.com";
+        masters { 74.50.51.50; };
+};
+

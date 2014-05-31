@@ -1,0 +1,11 @@
+---
+# The playbook for common tasks
+
+- name: Update apt-get
+  apt: update_cache=yes cache_valid_time=3600
+
+- name: Install ntp 
+  apt: pkg=ntp state=latest
+
+- name: Ensure ntp is enabled
+  service: name=ntp enabled=yes

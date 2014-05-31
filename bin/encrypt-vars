@@ -1,0 +1,18 @@
+#!/bin/bash
+
+set -e
+
+DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
+
+if [[ -z "$BITMECH_VARPASS" ]]; then
+	echo "BITMECH_VARPASS not set. Please set and run again."
+	exit 1
+fi
+
+# encrypt yml -> aes
+for file in "$DIR"/../playbooks/vars/*.aes.yml
+do
+	out="${file:0:${#file}-4}"
+	echo "Encrypting $file to $out"
+	openssl aes-256-cbc -k $BITMECH_VARPASS -in $file -out "$out"
+done

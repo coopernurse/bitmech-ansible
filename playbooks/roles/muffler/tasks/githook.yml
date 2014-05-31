@@ -1,0 +1,13 @@
+---
+
+- name: Checkout github repos
+  git: repo="https://github.com/coopernurse/{{ item }}.git" dest="/usr/local/github/{{ item }}"
+  with_items:
+    - githook
+    - barrister
+    - barrister-site
+    - barrister-js
+    - barrister-java
+    - barrister-ruby
+    - barrister-php
+

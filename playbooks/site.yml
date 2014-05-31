@@ -1,0 +1,6 @@
+- hosts: muffler.bitmechanic.com
+  vars_files:
+   - [ "vars/bitmech.aes.yml" ]
+  roles:
+   - common
+   - muffler

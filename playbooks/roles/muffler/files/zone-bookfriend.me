@@ -1,0 +1,41 @@
+; SOA Record
+$TTL 1h
+@     IN  SOA    turbo.bitmechanic.com. hostmaster.bitmechanic.com. (
+                   2011011601 ; Serial
+                        28800 ; Refresh
+                        14400 ; Retry
+                       604800 ; Expire
+                        3600); Minimum TTL
+
+		IN		NS	turbo.bitmechanic.com.
+		IN      NS	utopia.booyaka.com.
+
+; A Records
+@		1800	IN	A	209.114.32.155
+test	1800	IN	A	50.16.218.159
+ftp		1800	IN	A	50.16.218.159
+dev		1800	IN	A	209.114.32.155
+prod	1800	IN	A	209.114.32.155
+
+; CNAME Records
+google8993e1f5f7c81d7	3600	IN	CNAME	google.com
+www		3600	IN	CNAME	@
+mobilemail	3600	IN	CNAME	mobilemail-v01.prod.mesa1.secureserver.net
+pda		3600	IN	CNAME	mobilemail-v01.prod.mesa1.secureserver.net
+email	3600	IN	CNAME	email.secureserver.net
+imap	3600	IN	CNAME	imap.secureserver.net
+mail	3600	IN	CNAME	pop.secureserver.net
+pop		3600	IN	CNAME	pop.secureserver.net
+smtp	3600	IN	CNAME	smtp.secureserver.net
+webmail	3600	IN	CNAME	webmail.secureserver.net
+e		3600	IN	CNAME	email.secureserver.net
+
+; MX Records
+@	604800	IN	MX	10	ASPMX.L.GOOGLE.COM
+@	604800	IN	MX	20	ALT1.ASPMX.L.GOOGLE.COM
+@	604800	IN	MX	30	ALT2.ASPMX.L.GOOGLE.COM
+@	604800	IN	MX	40	ASPMX2.GOOGLEMAIL.COM
+@	604800	IN	MX	50	ASPMX3.GOOGLEMAIL.COM
+
+; TXT Records
+@	3600	IN	TXT	"google-site-verification=pct3P_Wuw0JL3gr3kHrnPoSVb-iRZIiCxKzCzOs9YqY"

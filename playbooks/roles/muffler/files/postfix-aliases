@@ -1,0 +1,35 @@
+# /etc/aliases
+mailer-daemon: postmaster
+postmaster: root
+nobody: root
+hostmaster: root
+usenet: root
+news: root
+webmaster: root
+www: root
+ftp: root
+abuse: root
+noc: root
+security: root
+
+#
+# root mail
+root: james
+
+#
+# mon alerts
+alert: james
+
+#
+# non-mailman aliases
+devnull: /dev/null 
+adam: adam.messinger@gmail.com
+james: jamespcooper@gmail.com
+booksupply: james
+esh: erin.swenson.healey@gmail.com
+james-netflix: jamespcooper@gmail.com, lorianncooks@gmail.com
+bmssender: james
+data: james
+info: james
+autodeploy: james
+james-facebook: james

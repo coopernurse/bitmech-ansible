@@ -1,0 +1,84 @@
+---
+
+#
+# BIND - nameserver
+#
+- name: Install bind9
+  apt: pkg=bind9 state=latest
+
+- name: Ensure bind9 is enabled
+  service: name=bind9 enabled=yes
+
+- name: Ensure bind9 master dir exists
+  file: path=/etc/bind/master/ owner=root group=root mode=0755 state=directory
+
+- name: Copy bind9 zone files
+  copy: src=../files/named.conf.local dest=/etc/bind/ owner=root mode=0644
+  notify: restart bind9
+
+- name: Copy bind9 zone files
+  copy: src={{ item }} dest=/etc/bind/master/ owner=root mode=0644
+  with_fileglob:
+    - ../files/zone-*
+  notify: restart bind9
+
+#
+# postfix
+#
+- name: Install postfix
+  apt: pkg=postfix state=latest
+
+- name: Copy postfix.cf
+  copy: src=../files/postfix-main.cf dest=/etc/postfix/main.cf owner=root group=root mode=644
+  notify: restart postfix
+
+- name: Copy /etc/aliases
+  copy: src=../files/postfix-aliases dest=/etc/aliases owner=root group=root mode=644
+  notify: reload postfix
+
+#
+# nginx
+#
+- name: Install nginx
+  apt: pkg=nginx state=latest
+
+#
+# mysql
+#
+- name: Install mysql
+  apt: pkg=mysql-server-5.6 state=latest
+
+- name: Copy my.cnf
+  copy: src=../files/my.cnf dest=/etc/mysql/my.cnf owner=root group=root mode=644
+  notify: restart mysql
+
+#
+# redis
+#
+- name: Install redis
+  apt: pkg=redis-server state=latest
+
+#
+# Go
+#
+- name: Download Go .tgz
+  get_url: url=https://storage.googleapis.com/golang/go1.2.2.linux-amd64.tar.gz dest=/usr/local/src/go1.2.2.linux-amd64.tar.gz
+  register: go_tgz
+
+- name: Unpack Go
+  shell: >
+    /bin/rm -rf /usr/local/go &&
+    /bin/tar zxf /usr/local/src/go1.2.2.linux-amd64.tar.gz -C /usr/local
+  when: go_tgz.changed
+
+#
+# other misc deps
+#
+- name: Install misc apt packages
+  action: apt pkg={{ item }} state=latest
+  with_items:
+    - ruby
+    - python-pip
+    - git
+    - mercurial
+
