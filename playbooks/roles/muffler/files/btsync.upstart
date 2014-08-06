@@ -1,0 +1,16 @@
+description "btsync"
+version "1.0"
+author "James Cooper <james@bitmechanic.com>"
+
+env BTSYNC_BIN=/usr/local/bin/btsync
+env BTSYNC_CONF=/etc/btsync.json
+
+respawn
+start on started sshd
+stop on starting shutdown
+
+limit nofile 100000 100000 
+
+script
+   su www-data -s /bin/bash -c "$BTSYNC_BIN --nodaemon --config $BTSYNC_CONF" 2>&1 | /usr/bin/logger -t btsync
+end script

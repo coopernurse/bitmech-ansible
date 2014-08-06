@@ -42,6 +42,13 @@
 - name: Install nginx
   apt: pkg=nginx state=latest
 
+- name: Copy nginx.conf
+  copy: src=../files/nginx.conf dest=/etc/nginx/nginx.conf owner=root group=root mode=644
+  notify: restart nginx
+
+- name: Ensure nginx is enabled
+  service: name=nginx enabled=yes
+
 #
 # mysql
 #
@@ -68,7 +75,11 @@
 - name: Unpack Go
   shell: >
     /bin/rm -rf /usr/local/go &&
-    /bin/tar zxf /usr/local/src/go1.2.2.linux-amd64.tar.gz -C /usr/local
+    /bin/tar zxf /usr/local/src/go1.2.2.linux-amd64.tar.gz -C /usr/local &&
+    /bin/mkdir -p /usr/local/gopath  &&
+    /bin/chmod 755 /usr/local/gopath  &&
+    /bin/mkdir -p /var/www  &&
+    /bin/chown www-data /var/www 
   when: go_tgz.changed
 
 #
@@ -81,4 +92,20 @@
     - python-pip
     - git
     - mercurial
+    - nodejs
+    - npm
+    - node-uglify
+    - python-virtualenv
+    - python-epydoc
+    - openjdk-7-jdk
+    - maven
+    - php5-cli
+    - php5-curl
 
+- name: Install jshint, mocha, and docco
+  shell: >
+    /usr/bin/update-alternatives --install /usr/bin/node node /usr/bin/nodejs 99 &&
+    /usr/bin/npm install jshint -g &&
+    /usr/bin/npm install docco -g &&
+    /usr/bin/npm install mocha -g &&
+    /usr/bin/gem install sinatra

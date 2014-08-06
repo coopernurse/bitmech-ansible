@@ -1,0 +1,28 @@
+{ 
+  "device_name": "muffler",
+  "listening_port" : 0,                      
+  "storage_path" : "/var/btsync",
+  "check_for_updates" : true, 
+  "use_upnp" : true,
+  "download_limit" : 0,                       
+  "upload_limit" : 0, 
+  "webui" :
+  {
+    "login" : "admin",
+    "password" : "password"
+  }
+  ,
+  "shared_folders" :
+  [
+    {
+      "secret" : "{{ btsync_secret_home }}",  
+      "dir" : "/var/btsync/data-home",
+      "use_relay_server" : true,
+      "use_tracker" : true, 
+      "use_dht" : false,
+      "search_lan" : true,
+      "use_sync_trash" : true, 
+      "known_hosts" : []
+    }
+  ]
+}

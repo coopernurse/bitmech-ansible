@@ -1,0 +1,26 @@
+---
+
+- name: Download btsync
+  get_url: url=http://btsync.s3-website-us-east-1.amazonaws.com/btsync_x64.tar.gz dest=/usr/local/src/btsync_x64.tar.gz
+  register: btsync_tgz
+
+- name: Unpack btsync
+  shell: >
+    /bin/rm -rf /tmp/btsync &&
+    /bin/mkdir -p /tmp/btsync &&
+    /bin/mkdir -p /var/btsync &&
+    /bin/chown www-data /var/btsync &&
+    /bin/tar zxf /usr/local/src/btsync_x64.tar.gz -C /tmp/btsync &&
+    /bin/cp -f /tmp/btsync/btsync /usr/local/bin/btsync
+  when: btsync_tgz.changed
+
+- name: Copy btsync.json
+  template: src=../templates/btsync.json.j2 dest=/etc/btsync.json owner=root group=root mode=644
+  notify: restart btsync
+
+- name: btsync upstart
+  copy: src=../files/btsync.upstart dest=/etc/init/btsync.conf owner=root group=root mode=644
+  notify: restart btsync
+
+- name: Ensure btsync is enabled
+  service: name=btsync enabled=yes

@@ -8,8 +8,17 @@
 - name: restart mysql
   service: name=mysql state=restarted 
 
+- name: restart nginx
+  service: name=nginx state=restarted 
+
+- name: restart githook
+  service: name=githook state=restarted 
+
 - name: restart postfix
   service: name=postfix state=restarted 
+
+- name: restart btsync
+  service: name=btsync state=restarted 
 
 - name: reload postfix
   shell: /usr/sbin/postfix reload
