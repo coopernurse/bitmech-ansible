@@ -1,0 +1,16 @@
+description "githook"
+version "1.0"
+author "James Cooper <james@bitmechanic.com>"
+
+env GITHOOK_BIN=/usr/local/gopath/bin/githook
+env GITHOOK_CONF=/etc/githook.json
+
+respawn
+start on started sshd
+stop on starting shutdown
+
+limit nofile 100000 100000 
+
+script
+   su www-data -s /bin/bash -c "$GITHOOK_BIN -h :8021 -c $GITHOOK_CONF" 2>&1 | /usr/bin/logger -t githook
+end script

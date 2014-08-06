@@ -10,4 +10,22 @@
     - barrister-java
     - barrister-ruby
     - barrister-php
+    - barrister-go
 
+- name: chown git checkouts to nobody
+  shell: /bin/chown -R www-data /usr/local/github/
+
+- name: Install githook
+  shell: GOPATH=/usr/local/gopath /usr/local/go/bin/go get -u github.com/coopernurse/githook
+  notify: restart githook
+
+- name: githook conf
+  copy: src=../files/githook.json dest=/etc/githook.json owner=root group=root mode=644
+  notify: restart githook
+
+- name: githook upstart
+  copy: src=../files/githook.upstart dest=/etc/init/githook.conf owner=root group=root mode=644
+  notify: restart githook
+
+- name: Ensure githook is enabled
+  service: name=githook enabled=yes

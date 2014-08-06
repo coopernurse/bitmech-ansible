@@ -1,0 +1,46 @@
+{
+	"repositories" : {
+		"barrister": {
+			"dir": "/usr/local/github/barrister",
+			"script": [
+				"/usr/local/github/barrister/pull_and_build.sh"
+			]
+		},
+		"barrister-js": {
+			"dir": "/usr/local/github/barrister-js",
+			"script": [
+				"/usr/local/github/barrister-js/pull_and_build.sh"
+			]
+		},
+		"barrister-ruby": {
+			"dir": "/usr/local/github/barrister-ruby",
+			"script": [
+				"/usr/local/github/barrister-ruby/pull_and_build.sh"
+			]
+		},
+		"barrister-php": {
+			"dir": "/usr/local/github/barrister-php",
+			"script": [
+				"/usr/local/github/barrister-php/pull_and_build.sh"
+			]
+		},
+		"barrister-go": {
+			"dir": "/usr/local/github/barrister-go",
+			"script": [
+				"/usr/local/github/barrister-go/pull_and_build.sh"
+			]
+		},
+		"barrister-java": {
+			"dir": "/usr/local/github/barrister-java",
+			"script": [
+				"/usr/local/github/barrister-java/pull_and_build.sh"
+			]
+		}
+	},
+	"email" : {
+		"smtpHost": "localhost:25",
+		"from": "james@bitmechanic.com",
+		"to": [ "james@bitmechanic.com" ],
+		"always": true
+	}
+}
