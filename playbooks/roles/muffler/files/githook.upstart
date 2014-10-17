@@ -6,7 +6,7 @@ env GITHOOK_BIN=/usr/local/gopath/bin/githook
 env GITHOOK_CONF=/etc/githook.json
 
 respawn
-start on started sshd
+start on started ssh
 stop on starting shutdown
 
 limit nofile 100000 100000 

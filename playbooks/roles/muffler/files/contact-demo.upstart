@@ -1,0 +1,13 @@
+description "contact-demo"
+version "1.0"
+author "James Cooper"
+
+env PYTHONPATH=/usr/local/github/barrister:/usr/local/github/barrister/env/lib/python2.7/site-packages
+
+respawn
+start on started ssh
+stop on starting shutdown
+
+script
+   su www-data -s /bin/bash -c "cd /usr/local/github/barrister-demo-contact/python && ./server.py" 2>&1 | /usr/bin/logger -t contact-demo
+end script

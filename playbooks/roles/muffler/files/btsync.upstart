@@ -6,7 +6,7 @@ env BTSYNC_BIN=/usr/local/bin/btsync
 env BTSYNC_CONF=/etc/btsync.json
 
 respawn
-start on started sshd
+start on started ssh
 stop on starting shutdown
 
 limit nofile 100000 100000 
