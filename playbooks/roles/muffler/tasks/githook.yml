@@ -11,6 +11,7 @@
     - barrister-ruby
     - barrister-php
     - barrister-go
+    - barrister-demo-contact
 
 - name: chown git checkouts to nobody
   shell: /bin/chown -R www-data /usr/local/github/

@@ -1,1 +1,21 @@
 ---
+- name: barrister-svc files
+  copy: src="../files/{{ item }}" dest="/usr/local/bin/{{ item }}" owner=root group=root mode=644
+  with_items:
+  - barrister-svc.py
+  - bottle.py
+  notify: restart barrister-svc
+
+- name: barrister-svc upstart
+  copy: src=../files/barrister-svc.upstart dest=/etc/init/barrister-svc.conf owner=root group=root mode=644
+  notify: restart barrister-svc
+
+- name: Ensure barrister-svc is enabled
+  service: name=barrister-svc enabled=yes
+
+- name: contact-demo upstart
+  copy: src=../files/contact-demo.upstart dest=/etc/init/contact-demo.conf owner=root group=root mode=644
+  notify: restart contact-demo
+
+- name: Ensure contact-demo is enabled
+  service: name=contact-demo enabled=yes

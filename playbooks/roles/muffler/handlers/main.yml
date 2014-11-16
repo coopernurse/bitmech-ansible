@@ -14,6 +14,12 @@
 - name: restart githook
   service: name=githook state=restarted 
 
+- name: restart contact-demo
+  service: name=contact-demo state=restarted 
+
+- name: restart barrister-svc
+  service: name=barrister-svc state=restarted 
+
 - name: restart postfix
   service: name=postfix state=restarted 
 
