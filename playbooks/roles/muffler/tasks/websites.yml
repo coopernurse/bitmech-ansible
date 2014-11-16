@@ -1,1 +1,13 @@
 ---
+
+- name: Create website dirs
+  shell: >
+    /bin/mkdir -p /usr/local/www/barrister-site &&
+    /bin/mkdir -p /usr/local/www/bookfriendme &&
+    /bin/chown -R james /usr/local/www
+
+- name: Copy bookfriendme files
+  copy: src=bookfriendme-logo.png dest=/usr/local/www/bookfriendme/ owner=james mode=644
+
+- name: Copy bookfriendme files 2
+  copy: src=bookfriendme-index.html dest=/usr/local/www/bookfriendme/index.html owner=james mode=644
