@@ -6,21 +6,8 @@
 - name: Install bind9
   apt: pkg=bind9 state=latest
 
-- name: Ensure bind9 is enabled
-  service: name=bind9 enabled=yes
-
-- name: Ensure bind9 master dir exists
-  file: path=/etc/bind/master/ owner=root group=root mode=0755 state=directory
-
-- name: Copy bind9 zone files
-  copy: src=../files/named.conf.local dest=/etc/bind/ owner=root mode=0644
-  notify: restart bind9
-
-- name: Copy bind9 zone files
-  copy: src={{ item }} dest=/etc/bind/master/ owner=root mode=0644
-  with_fileglob:
-    - ../files/zone-*
-  notify: restart bind9
+- name: Ensure bind9 is disabled
+  service: name=bind9 enabled=no
 
 #
 # postfix
@@ -31,10 +18,6 @@
 - name: Copy postfix.cf
   copy: src=../files/postfix-main.cf dest=/etc/postfix/main.cf owner=root group=root mode=644
   notify: restart postfix
-
-- name: Copy /etc/aliases
-  copy: src=../files/postfix-aliases dest=/etc/aliases owner=root group=root mode=644
-  notify: reload postfix
 
 #
 # nginx
@@ -79,7 +62,7 @@
     /bin/mkdir -p /usr/local/gopath  &&
     /bin/chmod 755 /usr/local/gopath  &&
     /bin/mkdir -p /var/www  &&
-    /bin/chown www-data /var/www 
+    /bin/chown www-data /var/www
   when: go_tgz.changed
 
 #
